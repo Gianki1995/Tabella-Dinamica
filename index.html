@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabella Dinamica</title>
+</head>
+<body>
+    
+    <script>
+        class Tabella {
+      
+
+            constructor(datiColonna, datiRighe){
+                this.datiColonna = datiColonna;
+                this.datiRighe = datiRighe;
+                this.generaTabella()
+               
+            }
+            
+            generaTabella(){
+                const tabella = document.createElement('table');
+                tabella.appendChild(this.generaColonne())
+                tabella.appendChild(this.generaRighe())
+                document.querySelector('body').appendChild(tabella)
+                if(this.datiColonna.length < this.datiRighe.length){
+                    alert('la lungezza delle righe non possono superare la lunghezza delle colonne')
+                }
+            }
+
+            generaColonne(){
+                const thead = document.createElement('thead');
+                this.datiColonna.forEach(datoColonna => {
+                    const th = document.createElement('th');
+                    const text = document.createTextNode(datoColonna)
+                    th.appendChild(text);
+                    thead.appendChild(th)
+                });
+
+                return thead;
+            }
+            generaRighe(){
+                const tbody = document.createElement('tbody');
+                this.datiRighe.forEach(riga => {
+                    const tr = document.createElement('tr');
+                    Object.keys(riga).forEach((key)=>{
+                        const cella = document.createElement("td");
+                        const text = document.createTextNode(riga[key]);
+                        cella.appendChild(text);
+                        tr.appendChild(cella)
+                    })
+                    tbody.appendChild(tr)
+                });
+                return tbody
+            }
+        }
+
+        const rifColonne = ['id','nome','cognome','email','numero telefono'];
+
+        const data = [
+            {
+                id: '1',
+                nome: 'Giancarlo',
+                cognome: 'Squitieri',
+                email: "dadfdfdf@libero.it",
+                numeroTelefono: "5454654654"
+            }
+        ];
+
+        const rifColonne2 = ["id", "prodotto", "prezzo"];
+            const data2 = [
+                {
+                    id: 1,
+                    prodotto: "hamburger",
+                    prezzo: 3.99,
+                },
+                {
+                    id: 1,
+                    prodotto: "hamburger",
+                    prezzo: 3.99,
+                },
+                {
+                    id: 1,
+                    prodotto: "hamburger",
+                    prezzo: 3.99,
+                },
+                {
+                    id: 1,
+                    prodotto: "hamburger",
+                    prezzo: 3.99,
+                    scadenza: "24/05/1999"
+                }
+            ];
+
+        let tabella1 =  new Tabella(rifColonne,data)
+        let tabella2 =  new Tabella(rifColonne2,data2)
+    </script>
+</body>
+</html>
